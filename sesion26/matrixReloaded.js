@@ -1,5 +1,5 @@
 function processMatrixData(numbers) {
-  const binaryNumbers = numbers.map(num => num.toString(16));
+  const binaryNumbers = numbers.map(num => num.toString(2));
   const highestValue = numbers.reduce((max, current) => (current > max ? current : max), numbers[0]);
   return {
     binaryNumbers,
