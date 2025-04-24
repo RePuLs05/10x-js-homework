@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hidden Message</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: white;
+      }
+      main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <p id="hidden-message" style="display: none">!MONEV ma I</p>
+      <p>Decoded Message: <span id="decoded-message"></span></p>
+      <button onclick="revealMessage()">Reveal Message</button>
+    </main>
+    <script>
+      function revealMessage() {
+        const hiddenMessage = document.getElementById("hidden-message");
+        const decodedMessage = document.getElementById("decoded-message");
+        hiddenMessage.style.display = "block";
+        const message = hiddenMessage.innerText.split("").reverse().join("");
+        decodedMessage.innerText = message;
+        document.body.style.backgroundColor = "black";
+        document.body.style.color = "white";
+      }
+    </script>
+  </body>
+</html>
