@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Suspect Identication</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: white;
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+      }
+      .suspect {
+        cursor: pointer;
+        width: 150px;
+        height: 30px;
+        border-radius: 10px;
+        background-color: black;
+        color: white;
+        text-align: center;
+        line-height: 30px;
+      }
+      .suspect:hover {
+        background-color: rgb(255, 255, 255);
+        color: black;
+        transform: scale(1.05);
+        transition: all 0.3s ease-in-out;
+      }
+      section {
+        /* margin: 0 auto; */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        width: 500px;
+        height: 150px;
+        border: 1px solid black;
+        border-radius: 50px;
+        background-color: black;
+        color: rgb(15, 15, 15);
+      }
+    </style>
+  </head>
+  <body>
+    <section id="suspect-section">
+      <div class="suspect" data-clue="red-hat">Suspect 1</div>
+      <div class="suspect" data-clue="blue-scarf">Suspect 2</div>
+      <div class="suspect" data-clue="green-coat">Suspect 3</div>
+      `
+    </section>
+
+    <script>
+      const evidence = "red-hat"; // Replace with your evidence
+      const suspects = document.getElementsByClassName("suspect");
+
+      for (let suspect of suspects) {
+        if (suspect.dataset.clue === evidence) {
+          suspect.classList.add("prime-suspect");
+
+          const identifiedTag = document.createElement("div");
+          identifiedTag.textContent = "IDENTIFIED";
+          identifiedTag.style.color = "red";
+          identifiedTag.style.fontWeight = "bold";
+          identifiedTag.style.marginTop = "10px";
+
+          suspect.parentNode.insertBefore(identifiedTag, suspect.nextSibling);
+        }
+      }
+    </script>
+  </body>
+</html>

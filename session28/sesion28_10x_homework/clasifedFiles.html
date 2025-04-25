@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>classified files</title>
+    <style>
+      body {
+        padding: 0;
+        background-color: white;
+      }
+      main {
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 500px;
+        width: 50%;
+        gap: 20px;
+      }
+      section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        width: 500px;
+        height: 150px;
+        border: 1px solid black;
+        border-radius: 50px;
+        background-color: black;
+        color: rgb(15, 15, 15);
+      }
+
+      .classified {
+        cursor: pointer;
+        width: 150px;
+        height: 30px;
+        border-radius: 10px;
+      }
+      .classified:hover, section:hover {
+        background-color: rgb(255, 255, 255);
+        transform: scale(1.05);
+        transition: all 0.3s ease-in-out;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section>
+        <div class="classified" data-security="high">Top Secret Document</div>
+        <div class="classified" data-security="medium">Confidential Report</div>
+        <div class="classified" data-security="low">Public Notice</div>
+      </section>
+    </main>
+
+    <script>
+      const classifiedElements = document.getElementsByClassName("classified");
+
+      Array.from(classifiedElements).forEach((element) => {
+        const securityLevel = element.getAttribute("data-security");
+
+        // Set background color based on security level
+        if (securityLevel === "high") {
+          element.style.backgroundColor = "red";
+        } else if (securityLevel === "medium") {
+          element.style.backgroundColor = "yellow";
+        } else if (securityLevel === "low") {
+          element.style.backgroundColor = "green";
+        }
+
+        // Add click event to reveal contents
+        element.addEventListener("click", () => {
+          alert(
+            `Contents: ${element.textContent} \nSecurity Level: ${securityLevel}`
+          );
+        });
+      });
+    </script>
+  </body>
+</html>
