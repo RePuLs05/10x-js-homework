@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Disappearing Records</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: white;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid black;
+      padding: 10px;
+      text-align: center;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    button {
+      cursor: pointer;
+      background-color: red;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+    }
+    button:hover {
+      background-color: darkred;
+    } 
+    #newEntry{
+      margin-bottom: 10px;
+      padding: 5px;
+      width: 200px;
+    }
+  </style>
+</head>
+<body>
+  <table>
+    <thead>
+      <tr>
+        <th>Data Entry</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody id="records">
+      <tr>
+        <td>Classified Info</td>
+        <td><button onclick="deleteEntry(this)">Delete</button></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <button onclick="recoverLast()">Recover Last Deleted</button>
+  <ul id="audit-log"></ul>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const recordsTable = document.getElementById('records');
+      const auditLog = document.getElementById('audit-log');
+      const deletedEntries = [];
+
+      // Add form dynamically
+      const form = document.createElement('form');
+      form.innerHTML = `
+        <input type="text" id="newEntry" placeholder="Enter new data" required>
+        <button type="submit">Add Entry</button>
+      `;
+      document.body.insertBefore(form, document.body.firstChild);
+
+      // Add new entry to the table
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const newEntryValue = document.getElementById('newEntry').value.trim();
+        if (newEntryValue) {
+          const newRow = document.createElement('tr');
+          newRow.innerHTML = `
+            <td>${newEntryValue}</td>
+            <td><button class="delete-btn">Delete</button></td>
+          `;
+          recordsTable.appendChild(newRow);
+          logAction(`Added: "${newEntryValue}"`);
+          form.reset();
+        }
+      });
+
+      // Event delegation for delete buttons
+      recordsTable.addEventListener('click', (e) => {
+        if (e.target.classList.contains('delete-btn')) {
+          const row = e.target.closest('tr');
+          const data = row.querySelector('td').textContent;
+          deletedEntries.push(row);
+          row.remove();
+          logAction(`Deleted: "${data}"`);
+        }
+      });
+
+      // Recover last deleted entry
+      window.recoverLast = () => {
+        if (deletedEntries.length > 0) {
+          const lastDeleted = deletedEntries.pop();
+          recordsTable.appendChild(lastDeleted);
+          const data = lastDeleted.querySelector('td').textContent;
+          logAction(`Recovered: "${data}"`);
+        } else {
+          alert('No entries to recover!');
+        }
+      };
+
+      // Log actions in the audit log
+      function logAction(action) {
+        const logItem = document.createElement('li');
+        logItem.textContent = action;
+        auditLog.appendChild(logItem);
+      }
+    });
+  </script>
+</body>
+</html>

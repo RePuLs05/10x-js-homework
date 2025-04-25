@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Digital Evidence Colection </title>
+    <style>
+      body{
+        margin: 0 auto;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <ul id="evidence-log"></ul>
+    <p>Evidence Remaining: <span id="evidence-count">0</span></p>
+
+    <div data-evidence="true">USB Drive</div>
+    <div data-evidence="true">Hacked File</div>
+    <div data-evidence="true">Suspicious Email</div>
+
+    <script>
+      const evidenseElements = document.querySelectorAll('[data-evidence="true"]');
+      const evidenceLog = document.getElementById("evidence-log");
+      const evidenceCount = document.getElementById("evidence-count");
+      let evidenceCollected = 0;
+
+      evidenseElements.forEach((element) => {
+        element.addEventListener("click", () => {
+          const evidenceItem = document.createElement("li");
+          evidenceItem.textContent = element.textContent;
+          evidenceLog.appendChild(evidenceItem);
+          element.style.display = "none";
+          evidenceCollected++;
+          evidenceCount.textContent = evidenceCollected;
+        });
+      });
+    </script>
+  </body>
+</html>
