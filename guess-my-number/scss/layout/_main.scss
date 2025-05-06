@@ -1,0 +1,54 @@
+
+
+
+
+
+
+// Main game area
+.main {
+  height: 65vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+// Left section with inputs
+.left {
+  width: 52rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .guess {
+    background: none;
+    border: 4px solid $text-color;
+    color: inherit;
+    font-size: 5rem;
+    padding: 2.5rem;
+    width: 25rem;
+    text-align: center;
+    display: block;
+    margin-bottom: 3rem;
+
+    &:focus {
+      outline: none;
+      border-color: $accent-color;
+    }
+  }
+}
+
+// Right section with info
+.right {
+  width: 52rem;
+  font-size: 2rem;
+
+  .message {
+    margin-bottom: 4rem;
+    height: 3rem;
+  }
+
+  .label-score,
+  .label-highscore {
+    margin-bottom: 2rem;
+  }
+}
